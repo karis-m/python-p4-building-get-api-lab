@@ -16,8 +16,10 @@ class Bakery(db.Model, SerializerMixin):
     created_at = db.Column(db.DateTime, server_default=db.func.now())
     updated_at = db.Column(db.DateTime, onupdate=db.func.now())
 
-    baked_goods = db.relationships('BakedGood', backref='game')
+    baked_goods = db.relationships('BakedGood', backref='bakery')
 
+    def __repr__(self):
+        return f'<Bakery {self.name}>'
 class BakedGood(db.Model, SerializerMixin):
     __tablename__ = 'baked_goods'
 
@@ -32,4 +34,6 @@ class BakedGood(db.Model, SerializerMixin):
 
     bakery_id = db.Column(db.Integer, db.ForeignKey('bakeries.id'))
 
+    def __repr__(self):
+        return f'<Bakery Item ({self.id}) {self.name}: {self.price}>'
     
